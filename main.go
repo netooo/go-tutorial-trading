@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"github.com/netooo/trade/config"
+	"github.com/netooo/trade/utils"
+	"log"
 )
 
 func main() {
-	fmt.Println(config.Config.ApiKey)
-	fmt.Println(config.Config.ApiSecret)
+	utils.LoggingSettings(config.Config.LogFile)
+	log.Println("test")
 }

@@ -9,6 +9,7 @@ import (
 type ConfigList struct {
 	ApiKey    string
 	ApiSecret string
+	LogFile   string
 }
 
 var Config ConfigList
@@ -21,7 +22,8 @@ func init() {
 	}
 
 	Config = ConfigList{
-		ApiKey:    cfg.Section("test").Key("api_key").String(),
-		ApiSecret: cfg.Section("test").Key("api_secret").String(),
+		ApiKey:    cfg.Section("api").Key("api_key").String(),
+		ApiSecret: cfg.Section("api").Key("api_secret").String(),
+		LogFile:   cfg.Section("trade").Key("log_file").String(),
 	}
 }
