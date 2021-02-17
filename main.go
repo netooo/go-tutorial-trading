@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
+	"github.com/netooo/trade/bitflyer"
 	"github.com/netooo/trade/config"
 	"github.com/netooo/trade/utils"
-	"log"
 )
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
-	log.Println("test")
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	fmt.Println(apiClient.GetBalance())
 }
