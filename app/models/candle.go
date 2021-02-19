@@ -41,3 +41,12 @@ func (c *Candle) Create() error {
 	}
 	return err
 }
+
+func (c *Candle) Save() error {
+	cmd := fmt.Sprintf("UPDATE %s SET open = ?, close = ?, high = ?, low = ?, volume = ? WHERE time = ?", c.TableName())
+	_, err := DbConnection.Exec(cmd, c.Open, c.Close, c.High, c.Low, c.Volume, c.Time.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	return err
+}
