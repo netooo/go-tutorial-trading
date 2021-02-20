@@ -50,3 +50,15 @@ func (c *Candle) Save() error {
 	}
 	return err
 }
+
+func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *Candle {
+	tableName := GetCandleTableName(productCode, duration)
+	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = ?", tableName)
+	row := DbConnection.QueryRow(cmd, dateTime.Format(time.RFC3339))
+	var candle Candle
+	err := row.Scan(&candle.Time, &candle.Open, &candle.Close, &candle.High, &candle.Low, &candle.Volume)
+	if err != nil {
+		return nil
+	}
+	return NewCandle(productCode, duration, candle.Time, candle.Open, candle.Close, candle.High, candle.Low, candle.Volume)
+}
